@@ -70,10 +70,10 @@ jobs:
               });
               let fs = require('fs');
               fs.writeFileSync(`${process.env.GITHUB_WORKSPACE}/artifact.zip`, Buffer.from(download.data));
-              
+
       - name: Unzip code coverage
         run: unzip artifact.zip
-        
+
       - name: Fix code coverage paths
         working-directory: .
         run: |
