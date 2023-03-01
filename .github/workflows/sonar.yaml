@@ -30,9 +30,9 @@ jobs:
         uses: octokit/request-action@v2.x
         id: get_pr_data
         with:
-          route: GET /repos/{full_name}/pulls/{number}
           number: ${{ steps.pr_number.outputs.content }}
           full_name: ${{ github.event.repository.full_name }}
+          route: GET /repos/{full_name}/pulls/{number}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Initialized repository
@@ -49,9 +49,9 @@ jobs:
             git checkout -B ${{ fromJson(steps.get_pr_data.outputs.data).base.ref }} upstream/${{ fromJson(steps.get_pr_data.outputs.data).base.ref }}
             git checkout ${{ github.event.workflow_run.head_branch }}
             git clean -ffdx && git reset --hard HEAD
-      
+
       - name: Download coverage report
-        uses: actions/github-script@v5
+        uses: actions/github-script@v6
         with:
             script: |
               let allArtifacts = await github.rest.actions.listWorkflowRunArtifacts({
@@ -70,10 +70,10 @@ jobs:
               });
               let fs = require('fs');
               fs.writeFileSync(`${process.env.GITHUB_WORKSPACE}/artifact.zip`, Buffer.from(download.data));
-              
+
       - name: Unzip code coverage
         run: unzip artifact.zip
-        
+
       - name: Fix code coverage paths
         working-directory: .
         run: |
