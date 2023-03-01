@@ -2,7 +2,7 @@ name: CI Setup
 on:
   push:
     branches:
-      - sonar-integration
+      - main
   pull_request:
     types: [opened, synchronize, reopened]
 jobs:
