@@ -95,6 +95,7 @@ jobs:
       - name: SonarCloud Scan on push
         if: github.event.workflow_run.event == 'push' && github.event.workflow_run.head_repository.full_name == ${{ github.event.workflow_run.head_repository.full_name }}
         uses: SonarSource/sonarcloud-github-action@master
+        env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           projectBaseDir: '.'
