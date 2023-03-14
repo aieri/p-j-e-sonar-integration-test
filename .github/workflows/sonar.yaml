@@ -33,6 +33,8 @@ jobs:
           number: ${{ steps.pr_number.outputs.content }}
           full_name: ${{ github.event.repository.full_name }}
           route: GET /repos/{full_name}/pulls/{number}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Initialized repository
         uses: actions/checkout@v3
         with:
@@ -82,6 +84,7 @@ jobs:
         if: github.event.workflow_run.event == 'pull_request'
         uses: SonarSource/sonarcloud-github-action@master
         env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           projectBaseDir: '.'
@@ -96,6 +99,7 @@ jobs:
         if: github.event.workflow_run.event == 'push' && github.event.workflow_run.head_repository.full_name == ${{ github.event.workflow_run.head_repository.full_name }}
         uses: SonarSource/sonarcloud-github-action@master
         env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           projectBaseDir: '.'
