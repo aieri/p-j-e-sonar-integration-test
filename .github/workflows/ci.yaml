@@ -5,6 +5,8 @@ on:
       - main
   pull_request:
     types: [opened, synchronize, reopened]
+env:
+  COV_REPORT_DIR: "/home/runner/work/${{ github.event.repository.name }}/${{ github.event.repository.name }}/tests/unit/report"
 jobs:
   citest:
     name: Lint and Unittests
@@ -30,13 +32,8 @@ jobs:
         with:
           name: PR_NUMBER
           path: PR_NUMBER.txt
-      - name: Save coverage report
-        run: |
-          report_root="/home/runner/work/prometheus-juju-exporter/prometheus-juju-exporter/tests/unit/report/"
-          cp ${report_root}/coverage.xml cov.xml
-
       - name: Archive code coverage results
         uses: actions/upload-artifact@v3
         with:
           name: coverage-report
-          path: ./cov.xml
+          path: ${{ env.COV_REPORT_DIR }}/coverage.xml
