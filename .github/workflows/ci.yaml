@@ -32,8 +32,8 @@ jobs:
           path: PR_NUMBER.txt
       - name: Save coverage report
         run: |
-          checkout_dir="/home/runner/work/${{ github.event.repository.name }}/"
-          report_root="${{ github.event.repository.name }}/tests/unit/report/"
+          checkout_dir="/home/runner/work/${{ github.event.repository.name }}"
+          report_root="${checkout_dir}/${{ github.event.repository.name }}/tests/unit/report"
           cp ${report_root}/coverage.xml cov.xml
 
       - name: Archive code coverage results
