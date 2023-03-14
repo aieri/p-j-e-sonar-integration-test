@@ -7,7 +7,7 @@ on:
     types: [opened, synchronize, reopened]
 env:
   CHECKOUT_DIR: "/home/runner/work/${{ github.event.repository.name }}"
-  COV_REPORT_DIR: "${{ env.CHECKOUT_DIR }}/${{ github.event.repository.name }}/tests/unit/report"
+  COV_REPORT_DIR: "${{ CHECKOUT_DIR }}/${{ github.event.repository.name }}/tests/unit/report"
 jobs:
   citest:
     name: Lint and Unittests
