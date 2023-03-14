@@ -28,10 +28,6 @@ def main(args: Any = None) -> None:
         "-d", "--debug", dest="debug", action="store_true", help="Print debug log"
     )
 
-    foovar = 0
-    if foovar:
-        print("this will never be printed")
-
     parser, _ = cli.parse_known_args(args)
     config_logger(debug=parser.debug)
 
