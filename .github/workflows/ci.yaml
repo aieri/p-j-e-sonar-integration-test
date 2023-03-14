@@ -13,7 +13,6 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-          set-safe-directory: 'work'
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
@@ -33,7 +32,8 @@ jobs:
           path: PR_NUMBER.txt
       - name: Save coverage report
         run: |
-          report_root="/home/runner/work/${{ github.event.repository.name }}/tests/unit/report/"
+          checkout_dir="/home/runner/work/${{ github.event.repository.name }}"
+          report_root="${checkout_dir}/${{ github.event.repository.name }}/tests/unit/report"
           cp ${report_root}/coverage.xml cov.xml
 
       - name: Archive code coverage results
