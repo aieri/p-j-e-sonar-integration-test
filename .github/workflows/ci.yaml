@@ -5,6 +5,9 @@ on:
       - main
   pull_request:
     types: [opened, synchronize, reopened]
+env:
+  CHECKOUT_DIR="/home/runner/work/${{ github.event.repository.name }}"
+  COV_REPORT_DIR="${{ env.CHECKOUT_DIR }}/${{ github.event.repository.name }}/tests/unit/report"
 jobs:
   citest:
     name: Lint and Unittests
@@ -30,14 +33,8 @@ jobs:
         with:
           name: PR_NUMBER
           path: PR_NUMBER.txt
-      - name: Save coverage report
-        run: |
-          checkout_dir="/home/runner/work/${{ github.event.repository.name }}"
-          report_root="${checkout_dir}/${{ github.event.repository.name }}/tests/unit/report"
-          cp ${report_root}/coverage.xml cov.xml
-
       - name: Archive code coverage results
         uses: actions/upload-artifact@v3
         with:
           name: coverage-report
-          path: ./cov.xml
+          path: ${{ env.COV_REPORT_DIR }}/coverage.xml
