@@ -79,7 +79,7 @@ jobs:
             cp coverage.xml tests/unit/report/coverage.xml
 
       - name: run ls
-        return: |
+        run: |
             echo ${{ github.workspace }}
             echo $GITHUB_WORKSPACE
             ls
