@@ -78,6 +78,13 @@ jobs:
             mkdir tests/unit/report
             cp coverage.xml tests/unit/report/coverage.xml
 
+      - name: run ls
+        return: |
+            echo ${{ github.workspace }}
+            echo $GITHUB_WORKSPACE
+            ls
+            find . -name sonar-project.properties
+
       - name: SonarCloud Scan on PR
         if: github.event.workflow_run.event == 'pull_request'
         uses: SonarSource/sonarcloud-github-action@master
