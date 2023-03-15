@@ -29,6 +29,7 @@ class Collector:
         self.previously_cached_labels: Dict[str, Any] = {}
         self.virt_mac_prefixes = self.config["detection"]["virt_macs"].as_str_seq()
         self.logger.debug("Collector initialized")
+        print("something")
 
     def refresh_cache(
         self, gauge_name: str, gauge_desc: str, labels: List[str]
