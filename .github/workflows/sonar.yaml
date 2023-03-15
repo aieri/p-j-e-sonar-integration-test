@@ -98,7 +98,7 @@ jobs:
             -Dsonar.pullrequest.key=${{ fromJson(steps.get_pr_data.outputs.data).number }}
             -Dsonar.pullrequest.branch=${{ fromJson(steps.get_pr_data.outputs.data).head.ref }}
             -Dsonar.pullrequest.base=${{ fromJson(steps.get_pr_data.outputs.data).base.ref }}
-            -Dproject.settings=sonar-project.properties
+            -Dproject.settings=${{ github.workspace }}/sonar-project.properties
 
       - name: SonarCloud Scan on push
         if: github.event.workflow_run.event == 'push' && github.event.workflow_run.head_repository.full_name == ${{ github.event.workflow_run.head_repository.full_name }}
@@ -111,4 +111,4 @@ jobs:
           args: >
             -Dsonar.scm.revision=${{ github.event.workflow_run.head_sha }}
             -Dsonar.branch.name=${{ github.event.workflow_run.head_branch }}
-            -Dproject.settings=sonar-project.properties
+            -Dproject.settings=${{ github.workspace }}/sonar-project.properties
